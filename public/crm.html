@@ -13,7 +13,6 @@
             --surface: #1A1A1A;
             --surface2: #242424;
             --border: #2E2E2E;
-            
             --text: #F0F0F0;
             --text-muted: #888;
             --green: #2ECC71;
@@ -615,7 +614,17 @@
     <button class="btn btn-ghost" style="border-color:#e74c3c;color:#e74c3c" onclick="clearUncontacted()">🗑 Remove Uncontacted</button>
     <button class="btn btn-gold" onclick="openFinderModal()" style="background:linear-gradient(135deg,#D4AF37,#f0c040)">🤖 Find Leads</button>
     <button class="btn btn-gold" onclick="openModal()">+ Add Lead</button>
+    <button onclick="moveToNewCRM()" style="background:#D4AF37;color:#000;border:none;padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer;font-size:13px;">🔄 Move to New CRM</button>
 </div>
+<script>
+function moveToNewCRM() {
+    const data = JSON.parse(localStorage.getItem('crm_leads') || '[]');
+    if (!data.length) { alert('No leads found here.'); return; }
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    window.open('http://localhost:3000/crm.html#migrate=' + encoded, '_blank');
+    alert('✅ Opening your new CRM with ' + data.length + ' leads. Check the new tab!');
+}
+</script>
 
 <!-- Table -->
 <div class="table-wrap">
